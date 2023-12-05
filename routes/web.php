@@ -47,6 +47,16 @@ Route::delete('/uploads/{upload}', [UploadController::class, 'destroy']);
 
 Route::put('/uploads/{upload}', [UploadController::class, 'update']);
 
+Route::middleware(['is_admin'])->group(function () {
+    
+    Route::get('/uploads', function () {
+       
+        return view('uploads.index');
+    });
+
+});
+
+
 
 
 require __DIR__.'/auth.php';

@@ -34,12 +34,16 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            // 可选：如果你想让用户在注册时指定他们是否是管理员
+            // 'is_admin' => ['required', 'boolean'],
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            // 设置默认的管理员标志。这里我们默认所有用户都不是管理员。
+            'is_admin' => false, 
         ]);
 
         event(new Registered($user));

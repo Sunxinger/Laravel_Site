@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::get('/uploads', [UploadController::class, 'index']);
+/* Route::get('/uploads', [UploadController::class, 'index']); */
 
 Route::post('/uploads', [UploadController::class, 'store']);
 
@@ -48,12 +48,14 @@ Route::delete('/uploads/{upload}', [UploadController::class, 'destroy']);
 Route::put('/uploads/{upload}', [UploadController::class, 'update']);
 
 Route::middleware(['is_admin'])->group(function () {
+
+    Route::get('/uploads', [UploadController::class, 'index']);
     
-    Route::get('/uploads', function () {
+   /*  Route::get('/uploads', function () {
        
         return view('uploads.index');
     });
-
+ */
 });
 
 

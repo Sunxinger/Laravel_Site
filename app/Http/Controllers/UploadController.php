@@ -40,7 +40,7 @@ class UploadController extends Controller
         $upload = new Upload;
         $upload->mimeType = $request->file('upload')->getMimeType();
         $upload->originalName = $request->file('upload')->getClientOriginalName();
-        $upload->path = $request->file('upload')->store('uploads');
+        $upload->path = $request->file('upload')->store('uploads', 'public');
         $upload->description = $request->input('description'); // 保存图片描述
         $upload->save();
 

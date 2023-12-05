@@ -111,7 +111,6 @@
     </div>
 
     <div class="container">
-        <!-- 用户上传的图片和描述 -->
         @foreach ($uploads as $upload)
             <div class="card">
                 <img src="{{ Storage::url($upload->path) }}" alt="Uploaded Image" style="max-width: 100%; height: auto;">

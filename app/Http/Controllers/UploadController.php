@@ -41,13 +41,10 @@ class UploadController extends Controller
         $upload->mimeType = $request->file('upload')->getMimeType();
         $upload->originalName = $request->file('upload')->getClientOriginalName();
         $upload->path = $request->file('upload')->store('uploads');
+        $upload->description = $request->input('description'); // 保存图片描述
         $upload->save();
-        return view('uploads.create',
-            ['id'=>$upload->id,
-            'path'=>$upload->path,
-            'originalName'=>$upload->originalName,
-            'mimeType'=>$upload->mimeType]
-        );
+
+        return redirect('/uploads'); // 重定向到上传列表页面
     }
 
     /**
@@ -56,10 +53,9 @@ class UploadController extends Controller
      * @param  \App\Models\Upload  $upload
      * @return \Illuminate\Http\Response
      */
-    public function show(Upload $upload,$originalName='')
+    public function show(Upload $upload)
     {
         $upload = Upload::findOrFail($upload->id);
-        //dd($upload);
         return response()->file(storage_path() . '/app/' . $upload->path);
     }
 
@@ -71,12 +67,12 @@ class UploadController extends Controller
      */
     public function edit(Upload $upload)
     {
-        return view('uploads.edit',
-            ['id'=>$upload->id,
-            'path'=>$upload->path,
-            'originalName'=>$upload->originalName,
-            'mimeType'=>$upload->mimeType]
-        );
+        return view('uploads.edit', [
+            'id' => $upload->id,
+            'path' => $upload->path,
+            'originalName' => $upload->originalName,
+            'mimeType' => $upload->mimeType
+        ]);
     }
 
     /**
@@ -89,12 +85,13 @@ class UploadController extends Controller
     public function update(Request $request, Upload $upload)
     {
         $upload = Upload::findOrFail($upload->id);
-		Storage::delete($upload->path);
-		$upload->originalName = request()->file('upload')->getClientOriginalName();
-		$upload->path = request()->file('upload')->store('uploads');
-		$upload->mimeType = $request->file('upload')->getClientMimeType();
-		$upload->save();
-		return back();//->with(['operation'=>'deleted','id'=>$upload->id]);
+        Storage::delete($upload->path);
+        $upload->originalName = $request->file('upload')->getClientOriginalName();
+        $upload->path = $request->file('upload')->store('uploads');
+        $upload->mimeType = $request->file('upload')->getClientMimeType();
+        $upload->save();
+
+        return back();
     }
 
     /**
@@ -108,6 +105,7 @@ class UploadController extends Controller
         $upload = Upload::findOrFail($upload->id);
         Storage::delete($upload->path);
         $upload->delete();
-        return back()->with(['operation'=>'deleted', 'id'=>$upload->id]);
+
+        return back()->with(['operation' => 'deleted', 'id' => $upload->id]);
     }
 }

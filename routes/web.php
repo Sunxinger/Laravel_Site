@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UploadController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +30,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/', [UploadController::class, 'showAllUploads']);
+
 Route::get('/uploads', [UploadController::class, 'index']);
 
 Route::post('/uploads', [UploadController::class, 'store']);
@@ -42,6 +45,8 @@ Route::get('/uploads/{upload}/{originalName?}', [UploadController::class, 'show'
 Route::delete('/uploads/{upload}', [UploadController::class, 'destroy']);
 
 Route::put('/uploads/{upload}', [UploadController::class, 'update']);
+
+
 
 require __DIR__.'/auth.php';
 

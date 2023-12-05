@@ -26,22 +26,28 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            column-count: 3; /* Adjust the number of columns here */
+            column-gap: 20px;
         }
         .card {
+            break-inside: avoid-column; /* This prevents the cards from being split across columns */
+            margin-bottom: 20px; /* Space between cards */
             background: white;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-            padding: 20px;
             transition: box-shadow 0.3s ease-in-out;
         }
         .card:hover {
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
-        .card h2 {
-            margin-top: 0;
+        .card img {
+            width: 100%;
+            height: auto;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
         }
         .card p {
+            padding: 0 20px 20px; /* Add padding inside the card for the text */
             color: #666;
         }
         .footer {
@@ -86,6 +92,19 @@
             background-color: #0056b3;
         }
 
+        /* Responsive columns */
+        @media (max-width: 1000px) {
+            .container {
+                column-count: 2;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                column-count: 1;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -95,7 +114,6 @@
     </div>
 
     <a href="/uploads/create" class="upload-button">Upload File</a>
-
 
     <div class="auth-buttons">
         @if (Route::has('login'))
@@ -113,7 +131,7 @@
     <div class="container">
         @foreach ($uploads as $upload)
             <div class="card">
-                <img src="{{ Storage::url($upload->path) }}" alt="Uploaded Image" style="max-width: 100%; height: auto;">
+                <img src="{{ Storage::url($upload->path) }}" alt="Uploaded Image">
                 <p>{{ $upload->description }}</p>
             </div>
         @endforeach

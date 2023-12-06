@@ -16,12 +16,26 @@
             background-color: #f4f4f4;
             color: #333;
         }
+
         .header {
+            text-align: center;
             background-color: #007bff;
             color: white;
             padding: 10px 0;
-            text-align: center;
         }
+
+        .logo-and-title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo-and-title .logo {
+            height: 50px; /* 调整 logo 大小 */
+            margin-right: 10px; /* 在 logo 和标题之间添加一些间距 */
+        }
+
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -109,8 +123,11 @@
 </head>
 <body>
     <div class="header">
-        <h1>IMAGEING®</h1>
-        <h3>Welcome to Sunxing's Picture Site</h3>
+        <div class="logo-and-title">
+            <img src="{{ Storage::url('uploads/Screenshot_2023-12-06_at_11.32.54-removebg-preview.png') }}" alt="Logo" class="logo">
+            <h1>IMAGEING®</h1>
+        </div>
+        <h3>Welcome to Sunxing's Laravel Site</h3>
     </div>
 
     <a href="/uploads/create" class="upload-button">Upload File</a>

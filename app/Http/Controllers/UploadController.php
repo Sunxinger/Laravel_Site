@@ -37,6 +37,10 @@ class UploadController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'upload' => 'required|image',
+        ]);
+
         $upload = new Upload;
         $upload->mimeType = $request->file('upload')->getMimeType();
         $upload->originalName = $request->file('upload')->getClientOriginalName();
@@ -44,8 +48,10 @@ class UploadController extends Controller
         $upload->description = $request->input('description'); 
         $upload->save();
 
-        return redirect('/uploads'); 
+        return redirect('/uploads')->with('success', 'File uploaded successfully!');
     }
+
+
 
     /**
      * Display the specified resource.

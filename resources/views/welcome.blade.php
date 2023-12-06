@@ -115,6 +115,12 @@
 
     <a href="/uploads/create" class="upload-button">Upload File</a>
 
+    <form action="{{ url('/search') }}" method="GET">
+        <input type="text" name="query" placeholder="Search by image description...">
+        <button type="submit">Search</button>
+    </form>
+    
+
     <div class="auth-buttons">
         @if (Route::has('login'))
             @auth

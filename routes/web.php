@@ -47,6 +47,8 @@ Route::delete('/uploads/{upload}', [UploadController::class, 'destroy']);
 
 Route::put('/uploads/{upload}', [UploadController::class, 'update']);
 
+Route::get('/search', [UploadController::class, 'search']);
+
 Route::middleware(['is_admin'])->group(function () {
 
     Route::get('/uploads', [UploadController::class, 'index']);

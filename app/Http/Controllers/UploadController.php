@@ -41,10 +41,10 @@ class UploadController extends Controller
         $upload->mimeType = $request->file('upload')->getMimeType();
         $upload->originalName = $request->file('upload')->getClientOriginalName();
         $upload->path = $request->file('upload')->store('uploads', 'public');
-        $upload->description = $request->input('description'); // 保存图片描述
+        $upload->description = $request->input('description'); 
         $upload->save();
 
-        return redirect('/uploads'); // 重定向到上传列表页面
+        return redirect('/uploads'); 
     }
 
     /**
@@ -107,5 +107,12 @@ class UploadController extends Controller
         $upload->delete();
 
         return back()->with(['operation' => 'deleted', 'id' => $upload->id]);
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $uploads = Upload::where('description', 'LIKE', "%{$query}%")->get();
+        return view('uploads.search', ['uploads' => $uploads]);
     }
 }

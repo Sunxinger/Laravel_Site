@@ -119,6 +119,7 @@ class UploadController extends Controller
     {
         $query = $request->input('query');
         $uploads = Upload::where('description', 'LIKE', "%{$query}%")->get();
+        //var_dump($query,$uploads);
         return view('uploads.search', ['uploads' => $uploads]);
     }
 }

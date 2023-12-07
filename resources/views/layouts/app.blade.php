@@ -29,7 +29,10 @@
 
             <!-- Page Content -->
             <main>
-              
+                @if (isset($content))
+                    {{ $content }}
+                @endif
+                @yield('content')
             </main>
         </div>
     </body>

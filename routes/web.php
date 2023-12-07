@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +49,8 @@ Route::delete('/uploads/{upload}', [UploadController::class, 'destroy']);
 Route::put('/uploads/{upload}', [UploadController::class, 'update']);
 
 Route::get('/search', [UploadController::class, 'search']);
+
+Route::get('/images/{id}', [ImageController::class, 'show'])->name('images.show');
 
 Route::middleware(['is_admin'])->group(function () {
 

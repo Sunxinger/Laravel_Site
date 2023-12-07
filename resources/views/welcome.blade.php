@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=65717accd945ce0012dd93b7&product=inline-share-buttons&source=platform" async="async"></script>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -89,6 +90,18 @@
             background-color: #0056b3;
         }
 
+        .auth-actions {
+            display: flex;
+            align-items: center; /* 垂直居中 */
+            justify-content: flex-start; /* 从左侧开始排列 */
+            gap: 10px; /* 元素之间的间隙 */
+        }
+
+        .sharethis-inline-share-buttons {
+            /* 如果需要，可以添加额外的样式来调整分享按钮的外观 */
+        }
+
+
         .upload-button {
             position: absolute;
             top: 40px; 
@@ -106,7 +119,36 @@
             background-color: #0056b3;
         }
 
-        /* Responsive columns */
+        .search-container {
+            position: absolute;
+            top: 110px; 
+            left: 20px;
+        }
+
+        .search-input,
+        .search-button {
+            margin-bottom: 10px; 
+        }
+
+        .search-input {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .search-button {
+            padding: 8px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .search-button:hover {
+            background-color: #0056b3;
+        }
+
         @media (max-width: 1000px) {
             .container {
                 column-count: 2;
@@ -132,16 +174,21 @@
 
     <a href="/uploads/create" class="upload-button">Upload File</a>
 
-    <form action="{{ url('/search') }}" method="GET">
-        <input type="text" name="query" placeholder="Search by image description...">
-        <button type="submit">Search</button>
-    </form>
+    <div class="search-container">
+        <form action="{{ url('/search') }}" method="GET">
+            <input type="text" name="query" placeholder="Search by image description...">
+            <button type="submit">Search</button>
+        </form>
+    </div>
     
 
     <div class="auth-buttons">
         @if (Route::has('login'))
             @auth
-                <a href="{{ url('/dashboard') }}" class="auth-button">Dashboard</a>
+                <div class="auth-actions">
+                    <div class="sharethis-inline-share-buttons"></div>
+                    <a href="{{ url('/dashboard') }}" class="auth-button">Dashboard</a>
+                </div>
             @else
                 <a href="{{ route('login') }}" class="auth-button">Log in</a>
                 @if (Route::has('register'))
@@ -154,12 +201,15 @@
     <div class="container">
         @foreach ($uploads as $upload)
             <div class="card">
-                <img src="{{ Storage::url($upload->path) }}" alt="Uploaded Image">
+                <a href="{{ route('images.show', $upload->id) }}">
+                    <img src="{{ Storage::url($upload->path) }}" alt="Uploaded Image">
+                </a>
                 <p>{{ $upload->description }}</p>
             </div>
         @endforeach
     </div>
 
+    
     <div class="footer">
         Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
     </div>

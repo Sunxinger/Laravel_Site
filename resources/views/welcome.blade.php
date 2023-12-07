@@ -92,13 +92,13 @@
 
         .auth-actions {
             display: flex;
-            align-items: center; /* 垂直居中 */
-            justify-content: flex-start; /* 从左侧开始排列 */
-            gap: 10px; /* 元素之间的间隙 */
+            align-items: center; 
+            justify-content: flex-start; 
+            gap: 10px; 
         }
 
         .sharethis-inline-share-buttons {
-            /* 如果需要，可以添加额外的样式来调整分享按钮的外观 */
+          
         }
 
 
@@ -197,6 +197,8 @@
             @endauth
         @endif
     </div>
+
+    <div id="ww_f031fc1b063ae" v='1.3' loc='id' a='{"t":"ticker","lang":"en","sl_lpl":1,"ids":["wl3213"],"font":"Arial","sl_ics":"one_a","sl_sot":"celsius","cl_bkg":"image","cl_font":"#FFFFFF","cl_cloud":"#FFFFFF","cl_persp":"#81D4FA","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722"}'>More forecasts: <a href="https://oneweather.org/london/30_days/" id="ww_f031fc1b063ae_u" target="_blank">30 day weather forecast london</a></div><script async src="https://app2.weatherwidget.org/js/?id=ww_f031fc1b063ae"></script>
 
     <div class="container">
         @foreach ($uploads as $upload)
